@@ -26,4 +26,23 @@ CHIP Memory {
 
     PARTS:
 	//// Replace this comment with your code.
+    // 地址解碼
+    Not(in=address[14], out=notAddress14);
+    
+    // RAM 選擇：address[14] = 0
+    And(a=load, b=notAddress14, out=ramLoad);
+    RAM16K(in=in, load=ramLoad, address=address[0..13], out=ramOut);
+
+    // Screen 選擇：address[14] = 1
+    And(a=load, b=address[14], out=screenLoad);
+    Screen(in=in, load=screenLoad, address=address[0..12], out=screenOut);
+
+    // Keyboard 選擇：address[14] = 1
+    Keyboard(out=keyboardOut);
+
+    // 輸出選擇：只用 address[14] 來區分 RAM 和 I/O
+    Mux16(a=ramOut, b=ioOut, sel=address[14], out=out);
+    
+    // I/O 內部選擇：Screen 或 Keyboard
+    Mux16(a=screenOut, b=keyboardOut, sel=address[13], out=ioOut);
 }

@@ -15,4 +15,18 @@ CHIP PC {
     
     PARTS:
     //// Replace this comment with your code.
+    // 儲存當前值的暫存器
+    Register(in=next, load=true, out=out, out=current);
+
+    // 計算當前值 + 1
+    Inc16(in=current, out=incOut);
+
+    // 第一層選擇：inc 還是保持當前值
+    Mux16(a=current, b=incOut, sel=inc, out=incOrCurrent);
+
+    // 第二層選擇：load 還是 inc/current
+    Mux16(a=incOrCurrent, b=in, sel=load, out=loadOrInc);
+
+    // 第三層選擇：reset 還是 load/inc/current
+    Mux16(a=loadOrInc, b[0]=false, b[1..15]=false, sel=reset, out=next);
 }

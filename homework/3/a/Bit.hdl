@@ -14,4 +14,9 @@ CHIP Bit {
 
     PARTS:
     //// Replace this comment with your code.
+    // 選擇要載入新值還是保持舊值
+    Mux(a=回饋值, b=in, sel=load, out=muxOut);
+    
+    // 儲存當前狀態（在時鐘觸發時更新）
+    DFF(in=muxOut, out=out, out=回饋值);
 }
