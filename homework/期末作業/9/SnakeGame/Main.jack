@@ -1,0 +1,13 @@
+/**
+ * Main class - Entry point for Snake Game
+ * This class starts the game
+ */
+class Main {
+    function void main() {
+        var SnakeGame game;
+        let game = SnakeGame.new();
+        do game.run();
+        do game.dispose();
+        return;
+    }
+}

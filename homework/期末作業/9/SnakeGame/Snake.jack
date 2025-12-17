@@ -1,0 +1,173 @@
+/**
+ * Snake class - Represents the snake
+ * Manages snake body, movement, and growth
+ */
+class Snake {
+    field Array bodyX, bodyY;  // Arrays to store snake body coordinates
+    field int length;          // Current snake length
+    field int direction;       // 1=Up, 2=Down, 3=Left, 4=Right
+    field int size;           // Size of each snake segment
+    field int maxLength;      // Maximum possible length
+    field boolean growing;    // Flag for growth
+    
+    /** Creates a new Snake */
+    constructor Snake new() {
+        let maxLength = 200;
+        let bodyX = Array.new(maxLength);
+        let bodyY = Array.new(maxLength);
+        let length = 3;
+        let direction = 4;  // Start moving right
+        let size = 8;
+        let growing = false;
+        
+        // Initialize snake in the middle of screen
+        let bodyX[0] = 256;
+        let bodyY[0] = 128;
+        let bodyX[1] = 248;
+        let bodyY[1] = 128;
+        let bodyX[2] = 240;
+        let bodyY[2] = 128;
+        
+        return this;
+    }
+    
+    /** Disposes the snake */
+    method void dispose() {
+        do bodyX.dispose();
+        do bodyY.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    /** Sets snake direction (prevents 180 degree turns) */
+    method void setDirection(int newDir) {
+        // Prevent moving in opposite direction
+        if ((direction = 1) & (newDir = 2)) { return; }
+        if ((direction = 2) & (newDir = 1)) { return; }
+        if ((direction = 3) & (newDir = 4)) { return; }
+        if ((direction = 4) & (newDir = 3)) { return; }
+        
+        let direction = newDir;
+        return;
+    }
+    
+    /** Move snake one step */
+    method void move() {
+        var int i;
+        var int newX, newY;
+        
+        // Calculate new head position
+        let newX = bodyX[0];
+        let newY = bodyY[0];
+        
+        if (direction = 1) { let newY = newY - size; }  // Up
+        if (direction = 2) { let newY = newY + size; }  // Down
+        if (direction = 3) { let newX = newX - size; }  // Left
+        if (direction = 4) { let newX = newX + size; }  // Right
+        
+        // Shift body segments (unless growing)
+        if (~growing) {
+            let i = length - 1;
+            while (i > 0) {
+                let bodyX[i] = bodyX[i - 1];
+                let bodyY[i] = bodyY[i - 1];
+                let i = i - 1;
+            }
+        } else {
+            let length = length + 1;
+            let growing = false;
+            
+            // Shift with new segment
+            let i = length - 1;
+            while (i > 0) {
+                let bodyX[i] = bodyX[i - 1];
+                let bodyY[i] = bodyY[i - 1];
+                let i = i - 1;
+            }
+        }
+        
+        // Set new head position
+        let bodyX[0] = newX;
+        let bodyY[0] = newY;
+        
+        return;
+    }
+    
+    /** Draw the snake */
+    method void draw() {
+        var int i;
+        
+        do Screen.setColor(true);
+        let i = 0;
+        while (i < length) {
+            do Screen.drawRectangle(
+                bodyX[i] - (size / 2),
+                bodyY[i] - (size / 2),
+                bodyX[i] + (size / 2),
+                bodyY[i] + (size / 2)
+            );
+            let i = i + 1;
+        }
+        
+        return;
+    }
+    
+    /** Check if snake hit a wall */
+    method boolean hitWall() {
+        if (bodyX[0] < 8) { return true; }
+        if (bodyX[0] > 503) { return true; }
+        if (bodyY[0] < 18) { return true; }
+        if (bodyY[0] > 247) { return true; }
+        return false;
+    }
+    
+    /** Check if snake hit itself */
+    method boolean hitSelf() {
+        var int i;
+        
+        let i = 1;
+        while (i < length) {
+            if ((bodyX[0] = bodyX[i]) & (bodyY[0] = bodyY[i])) {
+                return true;
+            }
+            let i = i + 1;
+        }
+        
+        return false;
+    }
+    
+    /** Check if snake ate the food */
+    method boolean eatFood(Food food) {
+        var int foodX, foodY;
+        
+        let foodX = food.getX();
+        let foodY = food.getY();
+        
+        // Check if head is close to food
+        if ((bodyX[0] > (foodX - size)) & (bodyX[0] < (foodX + size))) {
+            if ((bodyY[0] > (foodY - size)) & (bodyY[0] < (foodY + size))) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /** Mark snake for growth */
+    method void grow() {
+        if (length < (maxLength - 1)) {
+            let growing = true;
+        }
+        return;
+    }
+    
+    /** Get head X coordinate */
+    method int getHeadX() {
+        return bodyX[0];
+    }
+    
+    /** Get head Y coordinate */
+    method int getHeadY() {
+        return bodyY[0];
+    }
+}

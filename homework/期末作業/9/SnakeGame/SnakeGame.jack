@@ -1,0 +1,225 @@
+/**
+ * SnakeGame class - Main game logic
+ * Handles game loop, collision detection, and scoring
+ */
+class SnakeGame {
+    field Snake snake;
+    field Food food;
+    field int score;
+    field boolean gameOver;
+    field int delay;
+    
+    /** Creates a new Snake Game */
+    constructor SnakeGame new() {
+        let snake = Snake.new();
+        let food = Food.new();
+        let score = 0;
+        let gameOver = false;
+        let delay = 150;  // Game speed (lower = faster)
+        return this;
+    }
+    
+    /** Disposes the game */
+    method void dispose() {
+        do snake.dispose();
+        do food.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    /** Main game loop */
+    method void run() {
+        var char key;
+        var boolean paused;
+        
+        while (true) {
+            // Show start screen
+            do Screen.clearScreen();
+            do drawBorder();
+            do showInstructions();
+            
+            // Wait for user to press space to start
+            let key = 0;
+            while (~(key = 32)) {
+                let key = Keyboard.keyPressed();
+                do Sys.wait(50);
+            }
+            
+            // Wait for space key to be released
+            while (~(key = 0)) {
+                let key = Keyboard.keyPressed();
+                do Sys.wait(50);
+            }
+            
+            do Screen.clearScreen();
+            do drawBorder();
+            
+            let paused = false;
+            
+            // Main game loop
+            while (~gameOver) {
+                // Handle keyboard input
+                let key = Keyboard.keyPressed();
+                
+                if (key = 80) {  // P key = pause/unpause
+                    let paused = ~paused;
+                    if (paused) {
+                        do showPaused();
+                    } else {
+                        do Screen.setColor(false);
+                        do Screen.drawRectangle(150, 100, 360, 130);
+                        do Screen.setColor(true);
+                    }
+                    do Sys.wait(200);  // Debounce
+                }
+                
+                if (~paused) {
+                    if (key = 131) { do snake.setDirection(1); }  // Up arrow
+                    if (key = 133) { do snake.setDirection(2); }  // Down arrow
+                    if (key = 130) { do snake.setDirection(3); }  // Left arrow
+                    if (key = 132) { do snake.setDirection(4); }  // Right arrow
+                }
+                
+                if (~paused) {
+                    do snake.move();
+                    
+                    // Check wall collision
+                    if (snake.hitWall()) {
+                        let gameOver = true;
+                    }
+                    
+                    // Check self collision
+                    if (snake.hitSelf()) {
+                        let gameOver = true;
+                    }
+                    
+                    // Check food collision
+                    if (snake.eatFood(food)) {
+                        let score = score + 10;
+                        do snake.grow();
+                        do food.respawn();
+                        
+                        // Speed up game as score increases
+                        if (score > 50) {
+                            let delay = 100;
+                        }
+                        if (score > 100) {
+                            let delay = 80;
+                        }
+                    }
+                    
+                    // Draw everything
+                    do Screen.setColor(false);
+                    do Screen.drawRectangle(1, 11, 510, 254);  // Clear game area
+                    do Screen.setColor(true);
+                    do snake.draw();
+                    do food.draw();
+                    do displayScore();
+                    
+                    do Sys.wait(delay);
+                }
+            }
+            
+            // Game Over - show message and wait for restart
+            do showGameOver();
+            
+            let key = 0;
+            while (~(key = 82)) {  // Wait for R key
+                let key = Keyboard.keyPressed();
+                do Sys.wait(50);
+            }
+            
+            // Wait for R key to be released
+            while (~(key = 0)) {
+                let key = Keyboard.keyPressed();
+                do Sys.wait(50);
+            }
+            
+            // Reset game for next round
+            do resetGame();
+        }
+        
+        return;
+    }
+    
+    /** Restart the game */
+    method void resetGame() {
+        // Dispose old objects
+        do snake.dispose();
+        do food.dispose();
+        
+        // Create new objects
+        let snake = Snake.new();
+        let food = Food.new();
+        let score = 0;
+        let gameOver = false;
+        let delay = 150;
+        
+        return;
+    }
+    
+    /** Show paused message */
+    method void showPaused() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(150, 100, 360, 130);
+        do Screen.setColor(true);
+        do Screen.drawRectangle(150, 100, 360, 130);
+        do Output.moveCursor(11, 21);
+        do Output.printString("PAUSED");
+        do Output.moveCursor(13, 17);
+        do Output.printString("Press P to continue");
+        return;
+    }
+    
+    /** Draw border around game area */
+    method void drawBorder() {
+        do Screen.setColor(true);
+        do Screen.drawRectangle(0, 10, 511, 10);    // Top
+        do Screen.drawRectangle(0, 255, 511, 255);  // Bottom
+        do Screen.drawRectangle(0, 10, 0, 255);     // Left
+        do Screen.drawRectangle(511, 10, 511, 255); // Right
+        return;
+    }
+    
+    /** Display current score */
+    method void displayScore() {
+        do Output.moveCursor(0, 0);
+        do Output.printString("Score: ");
+        do Output.printInt(score);
+        do Output.printString("  [P]ause");
+        return;
+    }
+    
+    /** Show instructions before game starts */
+    method void showInstructions() {
+        do Output.moveCursor(10, 15);
+        do Output.printString("=== SNAKE GAME ===");
+        do Output.moveCursor(12, 10);
+        do Output.printString("Use Arrow Keys to Control");
+        do Output.moveCursor(14, 12);
+        do Output.printString("Eat the food to grow!");
+        do Output.moveCursor(16, 8);
+        do Output.printString("Don't hit walls or yourself!");
+        do Output.moveCursor(20, 12);
+        do Output.printString("Press SPACE to Start");
+        return;
+    }
+    
+    /** Show game over screen */
+    method void showGameOver() {
+        do Screen.setColor(false);
+        do Screen.drawRectangle(100, 90, 410, 160);
+        do Screen.setColor(true);
+        do Screen.drawRectangle(100, 90, 410, 160);
+        
+        do Output.moveCursor(10, 21);
+        do Output.printString("GAME OVER!");
+        do Output.moveCursor(12, 18);
+        do Output.printString("Final Score: ");
+        do Output.printInt(score);
+        do Output.moveCursor(14, 16);
+        do Output.printString("Press [R] to Restart");
+        
+        return;
+    }
+}

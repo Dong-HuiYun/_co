@@ -1,0 +1,145 @@
+function Food.new 0
+push constant 4
+call Memory.alloc 1
+pop pointer 0
+push constant 8
+pop this 2
+push constant 123
+pop this 3
+push pointer 0
+call Food.respawn 1
+pop temp 0
+push pointer 0
+return
+function Food.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Food.random 0
+push argument 0
+pop pointer 0
+push this 3
+push constant 75
+call Math.multiply 2
+push constant 74
+add
+pop this 3
+push this 3
+push constant 0
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 3
+neg
+pop this 3
+label IF_FALSE0
+push this 3
+push this 3
+push argument 1
+call Math.divide 2
+push argument 1
+call Math.multiply 2
+sub
+return
+function Food.respawn 2
+push argument 0
+pop pointer 0
+push pointer 0
+push constant 58
+call Food.random 2
+push constant 2
+add
+pop local 0
+push pointer 0
+push constant 28
+call Food.random 2
+push constant 3
+add
+pop local 1
+push local 0
+push constant 8
+call Math.multiply 2
+pop this 0
+push local 1
+push constant 8
+call Math.multiply 2
+pop this 1
+push this 3
+push this 0
+add
+push this 1
+add
+pop this 3
+push constant 0
+return
+function Food.draw 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 2
+push constant 2
+call Math.divide 2
+sub
+push this 1
+push this 2
+push constant 2
+call Math.divide 2
+sub
+push this 0
+push this 2
+push constant 2
+call Math.divide 2
+add
+push this 1
+push this 2
+push constant 2
+call Math.divide 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 2
+push constant 4
+call Math.divide 2
+sub
+push this 1
+push this 2
+push constant 4
+call Math.divide 2
+sub
+push this 0
+push this 2
+push constant 4
+call Math.divide 2
+add
+push this 1
+push this 2
+push constant 4
+call Math.divide 2
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Food.getX 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Food.getY 0
+push argument 0
+pop pointer 0
+push this 1
+return
