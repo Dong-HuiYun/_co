@@ -5,9 +5,9 @@
 **原創與參考來源說明：**
 
 - 第6-11章習題：全部由AI生成（DeepSeek/Gemini/Claude）
-- 第12章學習：參考 GitHub 專案以及老師的版本進行理解
+- 第12章習題：參考 GitHub 專案以及老師的版本進行理解
 - AI 輔助使用：
-[gemini對話網址]()
+[gemini對話網址](https://gemini.google.com/share/2ed098a7f9fc)
 
 ## 各章節內容報告
 
