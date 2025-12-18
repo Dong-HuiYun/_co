@@ -13,6 +13,8 @@
 
 ### 第6章：Assembler (組譯器)
 
+**作業連結：**[第六章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E6%9C%AB%E4%BD%9C%E6%A5%AD/6)
+
 **習題完成狀態：** AI生成
 
 **理解程度：** 少部分理解
@@ -37,6 +39,8 @@ python assembler.py Add.asm
 
 ### 第7章：VM Translator (Part 1)
 
+**作業連結：**[第七章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E6%9C%AB%E4%BD%9C%E6%A5%AD/7)
+
 **習題完成狀態：** AI生成
 
 **理解程度：** 少部分理解
@@ -50,6 +54,8 @@ python assembler.py Add.asm
 - [deepseek對話網址](https://chat.deepseek.com/share/y1apljhkrd0y2h7g2t)
 
 ### 第8章：VM Translator (Part 2)
+
+**作業連結：**[第八章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E6%9C%AB%E4%BD%9C%E6%A5%AD/8)
 
 **習題完成狀態：** AI生成
 
@@ -80,6 +86,8 @@ python assembler.py Add.asm
 
 ### 第9章：Jack 程式設計
 
+**作業連結：**[第九章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E6%9C%AB%E4%BD%9C%E6%A5%AD/9)
+
 **習題完成狀態：** AI生成
 
 **理解程度：** 少部分理解
@@ -109,6 +117,8 @@ python assembler.py Add.asm
 
 ### 第10章：語法分析器
 
+**作業連結：**[第十章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E6%9C%AB%E4%BD%9C%E6%A5%AD/10)
+
 **習題完成狀態：** AI生成
 
 **理解程度：** 少部分理解
@@ -135,6 +145,8 @@ python assembler.py Add.asm
 - [claude對話網址](https://claude.ai/share/8d86d7d1-b8f0-444a-a45a-d65876d7c466)
 
 ### 第11章：代碼產生器
+
+**作業連結：**[第十一章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E6%9C%AB%E4%BD%9C%E6%A5%AD/11)
 
 **習題完成狀態：** 老師提供的程式碼
 
@@ -177,6 +189,8 @@ cp [nand2tetris_path]/tools/OS/*.vm jack/Seven/
 
 
 ### 第12章：作業系統
+
+**作業連結：**[第十二章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E6%9C%AB%E4%BD%9C%E6%A5%AD/12)
 
 **學習狀態：** 僅閱讀理解老師的範例
 

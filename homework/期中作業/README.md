@@ -14,6 +14,8 @@
 
 ### 第1章：Elementary Logic Gates（基礎邏輯閘）
 
+**作業連結：**[第一章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E4%B8%AD%E4%BD%9C%E6%A5%AD/1)
+
 **習題完成狀態：** 原創（多工器後面的部分有在網路上找它的圖片，看是由哪些邏輯閘所組成的）
 
 **理解程度：** 大部分理解
@@ -33,6 +35,8 @@
 
 
 ### 第2章：Boolean Arithmetic（布林運算）
+
+**作業連結：**[第二章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E4%B8%AD%E4%BD%9C%E6%A5%AD/2)
 
 **習題完成狀態：** 部分原創+部分ai（詢問ai該如何設計，程式部分自己嘗試）
 
@@ -61,6 +65,8 @@
 - [deepseek對話網址](https://chat.deepseek.com/share/m54iatez0yxczupw5q)
 
 ### 第3章：Memory
+
+**作業連結：**[第三章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E4%B8%AD%E4%BD%9C%E6%A5%AD/3)
 
 **習題完成狀態：** AI生成
 
@@ -92,6 +98,8 @@
 
 ### 第4章：Machine Language（機器語言）
 
+**作業連結：**[第四章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E4%B8%AD%E4%BD%9C%E6%A5%AD/4)
+
 **習題完成狀態：** AI生成
 
 **理解程度：** 少部分理解
@@ -111,6 +119,8 @@
 - [deepseek對話網址](https://chat.deepseek.com/share/m54iatez0yxczupw5q)
 
 ### 第5章：Computer
+
+**作業連結：**[第五章](https://github.com/Dong-HuiYun/_co/tree/main/homework/%E6%9C%9F%E4%B8%AD%E4%BD%9C%E6%A5%AD/5)
 
 **習題完成狀態：** AI生成
 
